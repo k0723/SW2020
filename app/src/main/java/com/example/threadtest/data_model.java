@@ -5,14 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class data_model {
 
-
-    @SerializedName("days")
-    @Expose
-    private String days;
-
     @SerializedName("repeat")
     @Expose
-    private String repeat;
+    private boolean repeat;
 
     @SerializedName("hour")
     @Expose
@@ -24,17 +19,21 @@ public class data_model {
 
     @SerializedName("nano")
     @Expose
-    private String nano;
+    private int nano;
 
     @SerializedName("second")
     @Expose
     private String second;
 
+    @SerializedName("days")
+    @Expose
+    private String days;
+
     public void setDays(String days) {
         this.days = days;
     }
 
-    public void setRepeat(String repeat) {
+    public void setRepeat(boolean repeat) {
         this.repeat = repeat;
     }
 
@@ -46,7 +45,7 @@ public class data_model {
         this.minute = minute;
     }
 
-    public void setNano(String nano) {
+    public void setNano(int nano) {
         this.nano = nano;
     }
 
@@ -58,7 +57,7 @@ public class data_model {
         return days;
     }
 
-    public String getRepeat(){
+    public boolean getRepeat(){
         return repeat;
     }
 
@@ -70,15 +69,11 @@ public class data_model {
         return minute;
     }
 
-    public String getNano()
-    {
-        return nano;
-    }
+    public int getNano() {return nano;}
 
     public String getSecond()
     {
         return second;
     }
-
 
 }

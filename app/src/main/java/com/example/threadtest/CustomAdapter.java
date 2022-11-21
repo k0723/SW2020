@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -38,6 +39,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         protected TextView hour;
         protected TextView min;
         protected CardView Cardview;
+        protected TextView tv_ch0,tv_ch1,tv_ch2,tv_ch3,tv_ch4,tv_ch5,tv_ch6;
 
 
         public CustomViewHolder(View view) {
@@ -48,6 +50,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             this.hour = (TextView) view.findViewById(R.id.tvHour);
             this.min = (TextView) view.findViewById(R.id.tvMin);
             this.Cardview = (CardView) view.findViewById(R.id.CardView);
+            this.tv_ch0 = (TextView) view.findViewById(R.id.tv_week_0);
+            this.tv_ch1 = (TextView) view.findViewById(R.id.tv_week_1);
+            this.tv_ch2 = (TextView) view.findViewById(R.id.tv_week_2);
+            this.tv_ch3 = (TextView) view.findViewById(R.id.tv_week_3);
+            this.tv_ch4 = (TextView) view.findViewById(R.id.tv_week_4);
+            this.tv_ch5 = (TextView) view.findViewById(R.id.tv_week_5);
+            this.tv_ch6 = (TextView) view.findViewById(R.id.tv_week_6);
 
             Cardview.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -56,7 +65,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                     view = LayoutInflater.from(view.getContext())
                             .inflate(R.layout.activity_alarm_create, null, false);
                     builder.setView(view);
-                    boolean[] Weekend = new boolean[6];
+                    boolean[] Weekend = new boolean[8];
+                    boolean[] Weekend1 = new boolean[8];
+                    Weekend1 = mList.get(getAdapterPosition()).getWeekend();
                     final NumberPicker numberPickerAM = (NumberPicker)
                             view.findViewById(R.id.numPickerAP);
                     final NumberPicker numberPickerhour = (NumberPicker)
@@ -84,18 +95,31 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                     final CheckBox cb6 = (CheckBox)
                             view.findViewById(R.id.Sun);
 
-                    numberPickermin.setValue(mList.get(getAdapterPosition()).getHour());
                     numberPickermin.setMinValue(0);
                     numberPickermin.setMaxValue(59);
+                    numberPickermin.setWrapSelectorWheel(true);
+                    numberPickermin.setValue(mList.get(getAdapterPosition()).getMin());
 
-                    numberPickerhour.setValue(mList.get(getAdapterPosition()).getHour());
                     numberPickerhour.setMinValue(1);
                     numberPickerhour.setMaxValue(12);
+                    numberPickerhour.setWrapSelectorWheel(true);
+                    numberPickerhour.setValue(mList.get(getAdapterPosition()).getHour());
 
-                    numberPickerAM.setValue(mList.get(getAdapterPosition()).getAM());
                     numberPickerAM.setMinValue(0);
                     numberPickerAM.setMaxValue(1);
+                    numberPickerAM.setWrapSelectorWheel(true);
+                    numberPickerAM.setValue(mList.get(getAdapterPosition()).getAM());
                     numberPickerAM.setDisplayedValues(new String[]{"AM","PM"});
+
+
+                    if(Weekend1[0]==TRUE) {cb0.setChecked(true);}
+                    if(Weekend1[1]==TRUE) {cb1.setChecked(true);}
+                    if(Weekend1[2]==TRUE) {cb2.setChecked(true);}
+                    if(Weekend1[3]==TRUE) {cb3.setChecked(true);}
+                    if(Weekend1[4]==TRUE) {cb4.setChecked(true);}
+                    if(Weekend1[5]==TRUE) {cb5.setChecked(true);}
+                    if(Weekend1[6]==TRUE) {cb6.setChecked(true);}
+
                     final AlertDialog dialog = builder.create();
                     bt_save.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -123,7 +147,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                             Dictionary dict = new Dictionary(id,AM,hour,min,Weekend);
                             mList.set(getAdapterPosition(),dict);
                             notifyItemChanged(getAdapterPosition());
-//                            dialog.dismiss();
+                            dialog.dismiss();
                         }
                     });
                     dialog.show();
@@ -178,11 +202,42 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         viewholder.AM.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
         viewholder.hour.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
         viewholder.min.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+        viewholder.tv_ch0.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        viewholder.tv_ch1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        viewholder.tv_ch2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        viewholder.tv_ch3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        viewholder.tv_ch4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        viewholder.tv_ch5.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        viewholder.tv_ch6.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
 
         viewholder.id.setGravity(Gravity.CENTER);
         viewholder.AM.setGravity(Gravity.CENTER);
         viewholder.hour.setGravity(Gravity.CENTER);
         viewholder.min.setGravity(Gravity.CENTER);
+        viewholder.tv_ch0.setGravity(Gravity.CENTER);
+        viewholder.tv_ch1.setGravity(Gravity.CENTER);
+        viewholder.tv_ch2.setGravity(Gravity.CENTER);
+        viewholder.tv_ch3.setGravity(Gravity.CENTER);
+        viewholder.tv_ch4.setGravity(Gravity.CENTER);
+        viewholder.tv_ch5.setGravity(Gravity.CENTER);
+        viewholder.tv_ch6.setGravity(Gravity.CENTER);
+
+        viewholder.tv_ch0.setVisibility(View.INVISIBLE);
+        viewholder.tv_ch1.setVisibility(View.INVISIBLE);
+        viewholder.tv_ch2.setVisibility(View.INVISIBLE);
+        viewholder.tv_ch3.setVisibility(View.INVISIBLE);
+        viewholder.tv_ch4.setVisibility(View.INVISIBLE);
+        viewholder.tv_ch5.setVisibility(View.INVISIBLE);
+        viewholder.tv_ch6.setVisibility(View.INVISIBLE);
+        boolean Weekend[] = mList.get(position).getWeekend();
+
+        if(Weekend[0]==TRUE) {viewholder.tv_ch0.setVisibility(View.VISIBLE);}
+        if(Weekend[1]==TRUE) {viewholder.tv_ch1.setVisibility(View.VISIBLE);}
+        if(Weekend[2]==TRUE) {viewholder.tv_ch2.setVisibility(View.VISIBLE);}
+        if(Weekend[3]==TRUE) {viewholder.tv_ch3.setVisibility(View.VISIBLE);}
+        if(Weekend[4]==TRUE) {viewholder.tv_ch4.setVisibility(View.VISIBLE);}
+        if(Weekend[5]==TRUE) {viewholder.tv_ch5.setVisibility(View.VISIBLE);}
+        if(Weekend[6]==TRUE) {viewholder.tv_ch6.setVisibility(View.VISIBLE);}
 
 
         int AM4 = mList.get(position).getAM();
@@ -194,7 +249,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         {
             viewholder.AM.setText("오후");
         }
-        viewholder.AM.setText(mList.get(position).getId());
         viewholder.hour.setText(String.valueOf(mList.get(position).getHour())+"시");
         viewholder.min.setText(String.valueOf(mList.get(position).getMin())+"분");
     }
