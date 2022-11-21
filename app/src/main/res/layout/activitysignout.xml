@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:textSize="@android:dimen/app_icon_size"
+        android:text="SIGNOUT" />
+
+    <EditText
+        android:id="@+id/edit_signout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="insert ID" />
+
+    <Button
+        android:id="@+id/bt_agree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SIGNOUT" />
+</LinearLayout>

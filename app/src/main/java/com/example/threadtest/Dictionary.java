@@ -7,7 +7,7 @@ public class Dictionary {
 
 
 
-    private boolean[] weekend = new boolean[6];
+    private boolean[] weekend = new boolean[8];
     private int id;
     private int AM;
     private int Hour;
